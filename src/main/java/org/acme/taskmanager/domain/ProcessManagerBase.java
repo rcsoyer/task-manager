@@ -16,8 +16,8 @@ abstract class ProcessManagerBase implements ProcessManager {
     }
 
     @Override
-    public Collection<Process> listProcesses(final SortProcesses sortProcesses) {
-        return switch (sortProcesses) {
+    public Collection<Process> listProcesses(final SortProcesses sorting) {
+        return switch (sorting) {
             case TIME -> {
                 final var sorted = new ArrayList<Process>(processes.size());
                 processes.descendingIterator().forEachRemaining(sorted::add);
@@ -33,17 +33,17 @@ abstract class ProcessManagerBase implements ProcessManager {
     }
 
     @Override
-    public void killProcess(final Process process) {
-
+    public boolean killProcess(final Process process) {
+        return processes.remove(process);
     }
 
     @Override
-    public void killAllProcessesBy(final Priority priority) {
-
+    public boolean killAllProcessesBy(final Priority priority) {
+        return processes.removeIf(process -> process.priority() == priority);
     }
 
     @Override
     public void killAllProcesses() {
-
+        processes.clear();
     }
 }
