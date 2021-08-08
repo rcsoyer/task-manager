@@ -1,17 +1,27 @@
 plugins {
     id 'java'
+    id "idea"
 }
 
-group 'org.example'
+group 'org.acme'
 version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+}
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    juniterVersion = '5.7.2'
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${juniterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${juniterVersion}"
 }
 
 test {
