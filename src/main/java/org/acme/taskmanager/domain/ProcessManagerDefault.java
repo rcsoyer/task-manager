@@ -1,35 +1,39 @@
 package org.acme.taskmanager.domain;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Deque;
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import static java.util.Collections.unmodifiableCollection;
 
 public final class ProcessManagerDefault implements ProcessManager {
 
     private static final int MAX_NUMBER_PROCESSES = 5;
 
-    private final ExecutorService threadPool;
+    //  private final ExecutorService threadPool;
     private final Deque<Process> processes;
 
     public ProcessManagerDefault() {
-        this.threadPool = Executors.newFixedThreadPool(MAX_NUMBER_PROCESSES);
+        //     this.threadPool = Executors.newFixedThreadPool(MAX_NUMBER_PROCESSES);
         this.processes = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
     }
 
     @Override
-    public void addProcess() {
+    public boolean addProcess(final Process process) {
+        if (processes.size() < MAX_NUMBER_PROCESSES) {
+            return processes.add(process);
+        }
 
+        return false;
     }
 
     @Override
-    public void listProcesses() {
-
+    public Collection<Process> listProcesses() {
+        return unmodifiableCollection(processes);
     }
 
     @Override
-    public void killProcess(final UUID pid) {
+    public void killProcess(final Process process) {
 
     }
 

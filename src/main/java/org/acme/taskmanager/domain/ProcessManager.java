@@ -1,14 +1,14 @@
 package org.acme.taskmanager.domain;
 
-import java.util.UUID;
+import java.util.Collection;
 
 public interface ProcessManager {
 
-    void addProcess();
+    boolean addProcess(Process process);
 
-    void listProcesses();
+    Collection<Process> listProcesses();
 
-    void killProcess(UUID pid);
+    void killProcess(Process process);
 
     void killAllProcessesBy(Priority priority);
 
