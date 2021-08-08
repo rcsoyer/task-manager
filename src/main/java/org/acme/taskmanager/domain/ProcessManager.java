@@ -6,7 +6,7 @@ public interface ProcessManager {
 
     boolean addProcess(Process process);
 
-    Collection<Process> listProcesses();
+    Collection<Process> listProcesses(SortProcesses sortProcesses);
 
     void killProcess(Process process);
 

@@ -1,9 +1,6 @@
 package org.acme.taskmanager.domain;
 
 import java.util.ArrayDeque;
-import java.util.Collection;
-
-import static java.util.Collections.unmodifiableCollection;
 
 public final class ProcessManagerDefault extends ProcessManagerBase implements ProcessManager {
 
@@ -20,25 +17,5 @@ public final class ProcessManagerDefault extends ProcessManagerBase implements P
         }
 
         return false;
-    }
-
-    @Override
-    public Collection<Process> listProcesses() {
-        return unmodifiableCollection(processes);
-    }
-
-    @Override
-    public void killProcess(final Process process) {
-
-    }
-
-    @Override
-    public void killAllProcessesBy(final Priority priority) {
-
-    }
-
-    @Override
-    public void killAllProcesses() {
-
     }
 }

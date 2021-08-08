@@ -1,19 +1,28 @@
 package org.acme.taskmanager.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 
 import static java.util.Collections.unmodifiableCollection;
+import static org.acme.taskmanager.domain.SortProcesses.TIME;
 
 abstract class ProcessManagerBase implements ProcessManager {
 
-    protected final Collection<Process> processes;
+    protected final Deque<Process> processes;
 
-    protected ProcessManagerBase(final Collection<Process> processes) {
+    protected ProcessManagerBase(final Deque<Process> processes) {
         this.processes = processes;
     }
 
     @Override
-    public Collection<Process> listProcesses() {
+    public Collection<Process> listProcesses(final SortProcesses sortProcesses) {
+        if (sortProcesses == TIME) {
+            final var sorted = new ArrayList<Process>(processes.size());
+            processes.descendingIterator().forEachRemaining(sorted::add);
+            return unmodifiableCollection(sorted);
+        }
+
         return unmodifiableCollection(processes);
     }
 
