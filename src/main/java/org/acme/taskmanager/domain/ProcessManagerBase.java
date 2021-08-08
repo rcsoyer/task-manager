@@ -2,10 +2,10 @@ package org.acme.taskmanager.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Deque;
 
 import static java.util.Collections.unmodifiableCollection;
-import static org.acme.taskmanager.domain.SortProcesses.TIME;
 
 abstract class ProcessManagerBase implements ProcessManager {
 
@@ -17,13 +17,19 @@ abstract class ProcessManagerBase implements ProcessManager {
 
     @Override
     public Collection<Process> listProcesses(final SortProcesses sortProcesses) {
-        if (sortProcesses == TIME) {
-            final var sorted = new ArrayList<Process>(processes.size());
-            processes.descendingIterator().forEachRemaining(sorted::add);
-            return unmodifiableCollection(sorted);
-        }
-
-        return unmodifiableCollection(processes);
+        return switch (sortProcesses) {
+            case TIME -> {
+                final var sorted = new ArrayList<Process>(processes.size());
+                processes.descendingIterator().forEachRemaining(sorted::add);
+                yield unmodifiableCollection(sorted);
+            }
+            case PID -> processes.stream()
+                                 .sorted(Comparator.comparing(Process::pid))
+                                 .toList();
+            case PRIORITY -> processes.stream()
+                                      .sorted(Comparator.comparing(Process::priority))
+                                      .toList();
+        };
     }
 
     @Override
