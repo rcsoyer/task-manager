@@ -6,7 +6,7 @@ public enum Priority {
     MEDIUM,
     HIGH;
 
-    public boolean isHigher(final Priority priority) {
+    boolean isHigher(final Priority priority) {
         return ordinal() > priority.ordinal();
     }
 }

@@ -1,8 +1,7 @@
 package org.acme.taskmanager.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Deque;
+import java.util.Queue;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
@@ -11,20 +10,16 @@ abstract class ProcessManagerBase implements ProcessManager {
 
     protected static final int MAX_NUMBER_PROCESSES = 5;
 
-    protected final Deque<Process> processes;
+    protected final Queue<Process> processes;
 
-    protected ProcessManagerBase(final Deque<Process> processes) {
+    protected ProcessManagerBase(final Queue<Process> processes) {
         this.processes = processes;
     }
 
     @Override
     public Collection<Process> listProcesses(final SortProcesses sorting) {
         return switch (sorting) {
-            case TIME -> {
-                final var sorted = new ArrayList<Process>(processes.size());
-                processes.descendingIterator().forEachRemaining(sorted::add);
-                yield unmodifiableCollection(sorted);
-            }
+            case TIME -> unmodifiableCollection(processes);
             case PID -> processes.stream()
                                  .sorted(comparing(Process::pid))
                                  .toList();

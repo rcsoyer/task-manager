@@ -10,4 +10,8 @@ public record Process(UUID pid, Priority priority) {
     void kill() {
 
     }
+
+    public boolean isHigher(final Process checkHigher) {
+        return checkHigher.priority().isHigher(this.priority);
+    }
 }
