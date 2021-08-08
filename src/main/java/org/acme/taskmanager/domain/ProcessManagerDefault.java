@@ -4,8 +4,6 @@ import java.util.ArrayDeque;
 
 public final class ProcessManagerDefault extends ProcessManagerBase implements ProcessManager {
 
-    private static final int MAX_NUMBER_PROCESSES = 5;
-
     public ProcessManagerDefault() {
         super(new ArrayDeque<>(MAX_NUMBER_PROCESSES));
     }

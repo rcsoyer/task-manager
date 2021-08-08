@@ -9,6 +9,8 @@ import static java.util.Comparator.comparing;
 
 abstract class ProcessManagerBase implements ProcessManager {
 
+    protected static final int MAX_NUMBER_PROCESSES = 5;
+
     protected final Deque<Process> processes;
 
     protected ProcessManagerBase(final Deque<Process> processes) {
