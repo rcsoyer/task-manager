@@ -13,7 +13,7 @@ public class ProcessManagerOlderDiesFirst extends ProcessManagerBase implements 
     public boolean addProcess(final Process process) {
         if (processes.size() == MAX_NUMBER_PROCESSES) {
             processes.poll();
-            return true;
+            return processes.add(process);
         }
 
         return false;
