@@ -2,10 +2,10 @@ package org.acme.taskmanager.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Deque;
 
 import static java.util.Collections.unmodifiableCollection;
+import static java.util.Comparator.comparing;
 
 abstract class ProcessManagerBase implements ProcessManager {
 
@@ -24,10 +24,10 @@ abstract class ProcessManagerBase implements ProcessManager {
                 yield unmodifiableCollection(sorted);
             }
             case PID -> processes.stream()
-                                 .sorted(Comparator.comparing(Process::pid))
+                                 .sorted(comparing(Process::pid))
                                  .toList();
             case PRIORITY -> processes.stream()
-                                      .sorted(Comparator.comparing(Process::priority))
+                                      .sorted(comparing(Process::priority))
                                       .toList();
         };
     }
