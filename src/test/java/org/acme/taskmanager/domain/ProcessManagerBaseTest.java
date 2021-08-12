@@ -17,6 +17,7 @@ import static org.acme.taskmanager.domain.Priority.HIGH;
 import static org.acme.taskmanager.domain.Priority.LOW;
 import static org.acme.taskmanager.domain.Priority.MEDIUM;
 import static org.acme.taskmanager.domain.SortProcesses.PID;
+import static org.acme.taskmanager.domain.SortProcesses.PRIORITY;
 import static org.acme.taskmanager.domain.SortProcesses.TIME;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -59,6 +60,14 @@ class ProcessManagerBaseTest {
             assertThat(orderedByTime)
               .isNotSameAs(processes)
               .containsExactlyElementsOf(processes);
+        }
+
+        @Test
+        void listProcesses_byPriority() {
+            final Collection<Process> orderedByPriority = processManager.listProcesses(PRIORITY);
+
+            assertThat(List.copyOf(orderedByPriority))
+              .isSortedAccordingTo(comparing(Process::priority));
         }
     }
 
