@@ -22,7 +22,7 @@ import static org.acme.taskmanager.domain.SortProcesses.TIME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestInstance(Lifecycle.PER_CLASS)
-class ProcessManagerBaseTest {
+class AbstractProcessManagerTest {
 
     private ProcessManager processManager;
     private Queue<Process> processes;
@@ -34,7 +34,7 @@ class ProcessManagerBaseTest {
         processes.add(new Process(randomUUID(), MEDIUM));
         processes.add(new Process(randomUUID(), LOW));
 
-        processManager = new ProcessManagerBase() {
+        processManager = new AbstractProcessManager() {
             @Override
             public boolean addProcess(final Process process) {
                 return this.processes.add(process);

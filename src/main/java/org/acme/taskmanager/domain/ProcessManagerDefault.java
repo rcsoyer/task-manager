@@ -1,6 +1,6 @@
 package org.acme.taskmanager.domain;
 
-public final class ProcessManagerDefault extends ProcessManagerBase implements ProcessManager {
+public final class ProcessManagerDefault extends AbstractProcessManager implements ProcessManager {
 
     @Override
     public boolean addProcess(final Process process) {

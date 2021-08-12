@@ -7,13 +7,13 @@ import java.util.Queue;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
 
-abstract class ProcessManagerBase implements ProcessManager {
+abstract class AbstractProcessManager implements ProcessManager {
 
     protected static final int MAX_NUMBER_PROCESSES = 5;
 
     protected final Queue<Process> processes;
 
-    protected ProcessManagerBase() {
+    protected AbstractProcessManager() {
         this.processes = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
     }
 
