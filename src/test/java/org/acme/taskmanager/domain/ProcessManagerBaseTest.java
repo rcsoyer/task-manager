@@ -81,6 +81,17 @@ class ProcessManagerBaseTest {
 
     @Test
     void killAllProcessesBy() {
+        final var priority = MEDIUM;
+
+        assertThat(processes)
+          .hasSize(3)
+          .anyMatch(process -> process.priority() == priority);
+
+        processManager.killAllProcessesBy(priority);
+
+        assertThat(processes)
+          .hasSize(2)
+          .noneMatch(process -> process.priority() == priority);
     }
 
     @Test
