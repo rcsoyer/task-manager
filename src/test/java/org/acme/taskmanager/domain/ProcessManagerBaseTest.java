@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -27,7 +27,7 @@ class ProcessManagerBaseTest {
     private ProcessManager processManager;
     private Queue<Process> processes;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         processes = new ArrayDeque<>(3);
         processes.add(new Process(randomUUID(), HIGH));
@@ -96,5 +96,11 @@ class ProcessManagerBaseTest {
 
     @Test
     void killAllProcesses() {
+        assertThat(processes)
+          .hasSize(3);
+
+        processManager.killAllProcesses();
+
+        assertThat(processes).isEmpty();
     }
 }
