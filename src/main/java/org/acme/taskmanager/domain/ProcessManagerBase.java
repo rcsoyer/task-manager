@@ -1,5 +1,6 @@
 package org.acme.taskmanager.domain;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Queue;
 
@@ -12,8 +13,8 @@ abstract class ProcessManagerBase implements ProcessManager {
 
     protected final Queue<Process> processes;
 
-    protected ProcessManagerBase(final Queue<Process> processes) {
-        this.processes = processes;
+    protected ProcessManagerBase() {
+        this.processes = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
     }
 
     @Override

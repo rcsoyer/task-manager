@@ -34,12 +34,14 @@ class ProcessManagerBaseTest {
         processes.add(new Process(randomUUID(), MEDIUM));
         processes.add(new Process(randomUUID(), LOW));
 
-        processManager = new ProcessManagerBase(processes) {
+        processManager = new ProcessManagerBase() {
             @Override
             public boolean addProcess(final Process process) {
-                return false;
+                return this.processes.add(process);
             }
         };
+
+        processes.forEach(processManager::addProcess);
     }
 
     @Nested
@@ -58,7 +60,6 @@ class ProcessManagerBaseTest {
             final Collection<Process> orderedByTime = processManager.listProcesses(TIME);
 
             assertThat(orderedByTime)
-              .isNotSameAs(processes)
               .containsExactlyElementsOf(processes);
         }
 
@@ -73,34 +74,34 @@ class ProcessManagerBaseTest {
 
     @Test
     void killProcess() {
-        final Process head = processes.element();
+        final Process head = processManager.listProcesses(TIME).iterator().next();
         processManager.kill(head);
 
-        assertThat(processes).doesNotContain(head);
+        assertThat(processManager.listProcesses(TIME)).doesNotContain(head);
     }
 
     @Test
     void killAllProcessesBy() {
         final var priority = MEDIUM;
 
-        assertThat(processes)
+        assertThat(processManager.listProcesses(PID))
           .hasSize(3)
           .anyMatch(process -> process.priority() == priority);
 
         processManager.killAllProcessesBy(priority);
 
-        assertThat(processes)
+        assertThat(processManager.listProcesses(PID))
           .hasSize(2)
           .noneMatch(process -> process.priority() == priority);
     }
 
     @Test
     void killAllProcesses() {
-        assertThat(processes)
+        assertThat(processManager.listProcesses(PRIORITY))
           .hasSize(3);
 
         processManager.killAllProcesses();
 
-        assertThat(processes).isEmpty();
+        assertThat(processManager.listProcesses(PRIORITY)).isEmpty();
     }
 }
