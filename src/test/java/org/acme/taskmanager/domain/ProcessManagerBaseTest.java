@@ -73,6 +73,10 @@ class ProcessManagerBaseTest {
 
     @Test
     void killProcess() {
+        final Process head = processes.element();
+        processManager.kill(head);
+
+        assertThat(processes).doesNotContain(head);
     }
 
     @Test

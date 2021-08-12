@@ -30,7 +30,7 @@ abstract class ProcessManagerBase implements ProcessManager {
     }
 
     @Override
-    public boolean killProcess(final Process process) {
+    public boolean kill(final Process process) {
         return processes.remove(process);
     }
 

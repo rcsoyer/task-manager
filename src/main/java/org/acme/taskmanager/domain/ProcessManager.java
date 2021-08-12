@@ -8,7 +8,7 @@ public interface ProcessManager {
 
     Collection<Process> listProcesses(SortProcesses sortProcesses);
 
-    boolean killProcess(Process process);
+    boolean kill(Process process);
 
     boolean killAllProcessesBy(Priority priority);
 
