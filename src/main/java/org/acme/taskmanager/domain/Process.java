@@ -4,14 +4,7 @@ import java.util.UUID;
 
 public record Process(UUID pid, Priority priority) {
 
-    /**
-     * Terminate a process
-     */
-    void kill() {
-
-    }
-
-    public boolean isHigher(final Process checkHigher) {
-        return checkHigher.priority().isHigher(this.priority);
+    public boolean isHigher(final Process other) {
+        return priority.isHigher(other.priority());
     }
 }
