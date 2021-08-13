@@ -2,22 +2,24 @@ package org.acme.taskmanager.domain;
 
 import java.util.UUID;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.acme.taskmanager.domain.Priority.HIGH;
+import static org.acme.taskmanager.domain.Priority.LOW;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProcessTest {
 
-    private Process process;
-
-    @BeforeEach
-    void setUp() {
-        process = new Process(UUID.randomUUID(), Priority.HIGH);
-    }
-
     @Test
     void isHigher() {
-        new Process(UUID.randomUUID(), Priority.LOW);
+        final var low = new Process(UUID.randomUUID(), LOW);
+        final var high = new Process(UUID.randomUUID(), HIGH);
+
+        assertTrue(high.isHigher(low));
+        assertTrue(high.priority().isHigher(low.priority()));
+
+        assertFalse(low.isHigher(high));
+        assertFalse(low.priority().isHigher(high.priority()));
     }
 }
