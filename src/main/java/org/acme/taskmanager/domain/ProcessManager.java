@@ -17,7 +17,6 @@ public interface ProcessManager {
      */
     boolean add(Process process);
 
-
     /**
      * Creates an unmodifiable copy of the {@link Process}es registered with this {@link ProcessManager} sorted by the
      * value of {@link SortProcesses}
@@ -34,7 +33,6 @@ public interface ProcessManager {
      * @throws IllegalArgumentException if the passed parameter is null
      */
     boolean kill(Process process);
-
 
     /**
      * Kill all {@link Process}es present in this {@link ProcessManager} that has the given {@link Priority} parameter
