@@ -6,6 +6,7 @@ import java.util.Queue;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
+import static java.util.Objects.requireNonNull;
 
 public class ProcessManagerDefault implements ProcessManager {
 
@@ -28,11 +29,13 @@ public class ProcessManagerDefault implements ProcessManager {
 
     @Override
     public final boolean kill(final Process process) {
+        requireNonNull(process, "No 'Process' was informed");
         return managedProcesses.remove(process);
     }
 
     @Override
     public final boolean killAllProcessesBy(final Priority filter) {
+        requireNonNull(filter, "No 'Priority' filter was informed");
         return managedProcesses.removeIf(process -> process.priority() == filter);
     }
 
