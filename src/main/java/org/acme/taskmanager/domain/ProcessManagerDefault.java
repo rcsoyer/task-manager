@@ -2,7 +2,7 @@ package org.acme.taskmanager.domain;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Queue;
+import java.util.Deque;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
@@ -11,7 +11,7 @@ public class ProcessManagerDefault implements ProcessManager {
 
     private static final int MAX_NUMBER_PROCESSES = 5;
 
-    private final Queue<Process> managedProcesses = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
+    private final Deque<Process> managedProcesses = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
 
     @Override
     public final Collection<Process> listSorted(final SortProcesses sorting) {
@@ -51,7 +51,7 @@ public class ProcessManagerDefault implements ProcessManager {
     }
 
     protected void killOldest() {
-        managedProcesses.poll();
+        managedProcesses.pollLast();
     }
 
     protected boolean isCapacityReached() {

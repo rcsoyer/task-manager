@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(Lifecycle.PER_CLASS)
 class ProcessManagerDefaultTest {
 
-    private ProcessManager processManager;
+    private ProcessManagerDefault processManager;
     private Queue<Process> processes;
 
     @BeforeEach
@@ -98,5 +98,20 @@ class ProcessManagerDefaultTest {
         processManager.killAllProcesses();
 
         assertThat(processManager.listSorted(PRIORITY)).isEmpty();
+    }
+
+    @Test
+    @SuppressWarnings({"OptionalGetWithoutIsPresent", "java:S2699"})
+    void killOldest() {
+        final Process lastProcess = processManager
+          .getManagedProcesses()
+          .stream()
+          .reduce((first, next) -> next)
+          .get();
+
+        processManager.killOldest();
+
+        assertThat(processManager.getManagedProcesses())
+          .doesNotContain(lastProcess);
     }
 }
