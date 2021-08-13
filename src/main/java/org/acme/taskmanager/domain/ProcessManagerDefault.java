@@ -54,10 +54,17 @@ public class ProcessManagerDefault implements ProcessManager {
         managedProcesses.poll();
     }
 
+    /**
+     * The max capacity is defined and fixed at the creation of a {@link ProcessManager}
+     */
     protected boolean isCapacityReached() {
         return managedProcesses.size() == MAX_NUMBER_PROCESSES;
     }
 
+    /**
+     * Creates an unmodifiable copy of the underlying {@link ProcessManagerDefault#managedProcesses}. <br/> By default
+     * it's always order by age. This is the older are the ones that were added first.
+     */
     protected Collection<Process> getManagedProcesses() {
         return unmodifiableCollection(managedProcesses);
     }
