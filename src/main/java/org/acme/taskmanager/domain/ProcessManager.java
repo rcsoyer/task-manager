@@ -5,9 +5,6 @@ import java.util.Collection;
 /**
  * An aggregator that manages {@link Process}es. <br/> Implementation classes are expected to define a fixed maximum
  * number of 'processes' that is allowed for a 'manager' to handle
- *
- * @implNote For production purposes the methods that thrown {@link NullPointerException} should be refactored to throw
- * {@link IllegalArgumentException} instead
  */
 public interface ProcessManager {
 
@@ -16,7 +13,7 @@ public interface ProcessManager {
      * not been reached yet
      *
      * @return true if the passed {@link Process} was successfully registered with this {@link ProcessManager}
-     * @throws NullPointerException if the passed parameter is null
+     * @throws IllegalArgumentException if the passed parameter is null
      */
     boolean add(Process process);
 
@@ -25,7 +22,7 @@ public interface ProcessManager {
      * Creates an unmodifiable copy of the {@link Process}es registered with this {@link ProcessManager} sorted by the
      * value of {@link SortProcesses}
      *
-     * @throws NullPointerException if the passed parameter is null
+     * @throws IllegalArgumentException if the passed parameter is null
      */
     Collection<Process> listSorted(SortProcesses sortProcesses);
 
@@ -34,7 +31,7 @@ public interface ProcessManager {
      *
      * @return true if the passed {@link Process} is registered with this {@link ProcessManager} and was successfully
      * removed/killed
-     * @throws NullPointerException if the passed parameter is null
+     * @throws IllegalArgumentException if the passed parameter is null
      */
     boolean kill(Process process);
 
@@ -44,7 +41,7 @@ public interface ProcessManager {
      *
      * @return true if the passed {@link Process} is registered with this {@link ProcessManager} and was successfully
      * removed/killed
-     * @throws NullPointerException if the passed parameter is null
+     * @throws IllegalArgumentException if the passed parameter is null
      */
     boolean killAllProcessesBy(Priority priority);
 
