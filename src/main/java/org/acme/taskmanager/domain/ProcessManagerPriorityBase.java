@@ -6,7 +6,7 @@ public final class ProcessManagerPriorityBase extends ProcessManagerDefault impl
 
     @Override
     public boolean add(final Process process) {
-        getProcesses()
+        getManagedProcesses()
           .stream()
           .min(comparing(Process::priority))
           .filter(process::isHigher)

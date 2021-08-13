@@ -11,54 +11,54 @@ public class ProcessManagerDefault implements ProcessManager {
 
     private static final int MAX_NUMBER_PROCESSES = 5;
 
-    private final Queue<Process> processes = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
+    private final Queue<Process> managedProcesses = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
 
     @Override
     public final Collection<Process> listSorted(final SortProcesses sorting) {
         return switch (sorting) {
-            case TIME -> unmodifiableCollection(processes);
-            case PID -> processes.stream()
-                                 .sorted(comparing(Process::pid))
-                                 .toList();
-            case PRIORITY -> processes.stream()
-                                      .sorted(comparing(Process::priority))
-                                      .toList();
+            case TIME -> unmodifiableCollection(managedProcesses);
+            case PID -> managedProcesses.stream()
+                                        .sorted(comparing(Process::pid))
+                                        .toList();
+            case PRIORITY -> managedProcesses.stream()
+                                             .sorted(comparing(Process::priority))
+                                             .toList();
         };
     }
 
     @Override
     public final boolean kill(final Process process) {
-        return processes.remove(process);
+        return managedProcesses.remove(process);
     }
 
     @Override
     public final boolean killAllProcessesBy(final Priority priority) {
-        return processes.removeIf(process -> process.priority() == priority);
+        return managedProcesses.removeIf(process -> process.priority() == priority);
     }
 
     @Override
     public final void killAllProcesses() {
-        processes.clear();
+        managedProcesses.clear();
     }
 
     @Override
     public boolean add(final Process process) {
         if (!isCapacityReached()) {
-            return processes.offer(process);
+            return managedProcesses.offer(process);
         }
 
         return false;
     }
 
     protected void killOldest() {
-        processes.poll();
+        managedProcesses.poll();
     }
 
     protected boolean isCapacityReached() {
-        return processes.size() == MAX_NUMBER_PROCESSES;
+        return managedProcesses.size() == MAX_NUMBER_PROCESSES;
     }
 
-    protected Collection<Process> getProcesses() {
-        return unmodifiableCollection(processes);
+    protected Collection<Process> getManagedProcesses() {
+        return unmodifiableCollection(managedProcesses);
     }
 }
