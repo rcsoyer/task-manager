@@ -1,9 +1,9 @@
 package org.acme.taskmanager.domain;
 
 import java.util.ArrayDeque;
-import java.util.Queue;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -20,17 +20,10 @@ class ProcessManagerPriorityBasedTest {
     private static final int DEFAULT_MAX_SIZE_PROCESSES = 5;
 
     private ProcessManagerPriorityBased processManager;
-    private Queue<Process> processes;
 
     @BeforeEach
     void setUp() {
         processManager = new ProcessManagerPriorityBased();
-        processes = new ArrayDeque<>(of(new Process(randomUUID(), HIGH),
-                                        new Process(randomUUID(), MEDIUM),
-                                        new Process(randomUUID(), LOW),
-                                        new Process(randomUUID(), HIGH),
-                                        new Process(randomUUID(), MEDIUM)));
-        processes.forEach(processManager::add);
     }
 
     @Nested
@@ -38,6 +31,30 @@ class ProcessManagerPriorityBasedTest {
 
         @Test
         void add_whenHasNoSpaceThenOldestLowestPriorityIsRemoved() {
+            final var tobeRemoved = new Process(randomUUID(), LOW);
+            final var processes = new ArrayDeque<>(of(new Process(randomUUID(), HIGH),
+                                                      new Process(randomUUID(), MEDIUM),
+                                                      tobeRemoved,
+                                                      new Process(randomUUID(), HIGH),
+                                                      new Process(randomUUID(), MEDIUM)));
+            final var addition = new Process(randomUUID(), MEDIUM);
+
+            processes.forEach(processManager::add);
+
+            assertThat(processManager.getManagedProcesses())
+              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+
+            assertTrue(processManager.add(addition));
+
+            assertThat(processManager.getManagedProcesses())
+              .contains(addition)
+              .doesNotContain(tobeRemoved)
+              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+        }
+
+        @Test
+        @Disabled
+        void add_whenHasSpaceThenOldestNotRemoved() {
             final var addition = new Process(randomUUID(), MEDIUM);
 
             assertThat(processManager.getManagedProcesses())
