@@ -5,7 +5,8 @@ import java.util.Collection;
 public interface ProcessManager {
 
     /**
-     * Kill the given {@link Process} if the same is registered with this {@link ProcessManager}
+     * Add the given {@link Process} to this {@link ProcessManager} if the fixed maximum number of processes allowed has
+     * not been reached yet
      *
      * @return true if the passed {@link Process} was successfully registered with this {@link ProcessManager}
      * @throws NullPointerException if the passed parameter is null
