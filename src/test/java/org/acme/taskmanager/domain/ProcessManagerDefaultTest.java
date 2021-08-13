@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ProcessManagerDefaultTest {
 
     private static final int DEFAULT_MAX_SIZE_PROCESSES = 5;
+
     private ProcessManagerDefault processManager;
     private Queue<Process> processes;
 
