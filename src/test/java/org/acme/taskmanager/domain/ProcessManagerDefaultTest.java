@@ -20,6 +20,7 @@ import static org.acme.taskmanager.domain.SortProcesses.PID;
 import static org.acme.taskmanager.domain.SortProcesses.PRIORITY;
 import static org.acme.taskmanager.domain.SortProcesses.TIME;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -115,13 +116,37 @@ class ProcessManagerDefaultTest {
           .doesNotContain(oldest);
     }
 
-    @Test
-    void add() {
-        final var addition = new Process(randomUUID(), MEDIUM);
+    @Nested
+    class Add {
 
-        assertTrue(processManager.add(addition));
+        @Test
+        void add_whenHasSpaceThenAdded() {
+            final var addition = new Process(randomUUID(), MEDIUM);
 
-        assertThat(processManager.getManagedProcesses())
-          .contains(addition);
+            assertTrue(processManager.add(addition));
+
+            assertThat(processManager.getManagedProcesses())
+              .contains(addition);
+        }
+
+        @Test
+        void add_whenDoesNotHaveSpaceThenNotAdded() {
+            final int defaultMaxSizeProcesses = 5;
+
+            while (processManager.getManagedProcesses().size() != defaultMaxSizeProcesses) {
+                processManager.add(new Process(randomUUID(), MEDIUM));
+            }
+
+            assertThat(processManager.getManagedProcesses())
+              .hasSize(defaultMaxSizeProcesses);
+
+            final var addition = new Process(randomUUID(), HIGH);
+
+            assertFalse(processManager.add(addition));
+
+            assertThat(processManager.getManagedProcesses())
+              .doesNotContain(addition)
+              .hasSize(defaultMaxSizeProcesses);
+        }
     }
 }
