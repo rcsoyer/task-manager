@@ -32,8 +32,8 @@ public class ProcessManagerDefault implements ProcessManager {
     }
 
     @Override
-    public final boolean killAllProcessesBy(final Priority priority) {
-        return managedProcesses.removeIf(process -> process.priority() == priority);
+    public final boolean killAllProcessesBy(final Priority filter) {
+        return managedProcesses.removeIf(process -> process.priority() == filter);
     }
 
     @Override
