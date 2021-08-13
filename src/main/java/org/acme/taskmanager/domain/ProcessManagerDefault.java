@@ -16,6 +16,7 @@ public class ProcessManagerDefault implements ProcessManager {
 
     @Override
     public final Collection<Process> listSorted(final SortProcesses sorting) {
+        requireNonNull(sorting, "No 'sorting' filter was informed");
         return switch (sorting) {
             case TIME -> getManagedProcesses();
             case PID -> managedProcesses.stream()
@@ -46,6 +47,8 @@ public class ProcessManagerDefault implements ProcessManager {
 
     @Override
     public boolean add(final Process process) {
+        requireNonNull(process, "No 'Process' was informed");
+
         if (!isCapacityReached()) {
             return managedProcesses.offer(process);
         }
