@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import static org.acme.taskmanager.domain.util.ParametersValidationUtils.requireNonNull;
 
-
 public record Process(UUID pid, Priority priority) {
 
     public Process {
