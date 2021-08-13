@@ -21,6 +21,7 @@ import static org.acme.taskmanager.domain.SortProcesses.PRIORITY;
 import static org.acme.taskmanager.domain.SortProcesses.TIME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -167,6 +168,17 @@ class ProcessManagerDefaultTest {
 
             assertFalse(processManager.isCapacityReached());
         }
+    }
+
+    @Test
+    void getManagedProcesses() {
+        final Collection<Process> managedProcesses = processManager.getManagedProcesses();
+
+        assertThat(managedProcesses)
+          .containsExactlyElementsOf(processManager.getManagedProcesses())
+          .isNotSameAs(processManager.getManagedProcesses());
+
+        assertThrows(UnsupportedOperationException.class, managedProcesses::clear);
     }
 
     private void addProcessesUntilMax() {
