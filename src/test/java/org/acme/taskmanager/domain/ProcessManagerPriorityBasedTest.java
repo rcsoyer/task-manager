@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.List.of;
 import static java.util.UUID.randomUUID;
@@ -15,7 +16,7 @@ import static org.acme.taskmanager.domain.Priority.MEDIUM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(Lifecycle.PER_CLASS)
 class ProcessManagerPriorityBasedTest {
 
     private static final int DEFAULT_MAX_SIZE_PROCESSES = 5;
