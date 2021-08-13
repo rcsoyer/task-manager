@@ -69,35 +69,38 @@ class ProcessManagerDefaultTest {
 
     @Test
     void killProcess() {
-        final Process head = processManager.listSorted(TIME).iterator().next();
+        final Process head = processManager.getManagedProcesses().iterator().next();
         processManager.kill(head);
 
-        assertThat(processManager.listSorted(TIME)).doesNotContain(head);
+        assertThat(processManager.getManagedProcesses()).doesNotContain(head);
     }
 
     @Test
     void killAllProcessesBy() {
         final var priority = MEDIUM;
+        final Collection<Process> beforeKill = processManager.getManagedProcesses();
+        final var beforeKillSize = beforeKill.size();
 
-        assertThat(processManager.listSorted(PID))
-          .hasSize(3)
+        assertThat(beforeKill)
+          .hasSize(beforeKillSize)
           .anyMatch(process -> process.priority() == priority);
 
         processManager.killAllProcessesBy(priority);
 
-        assertThat(processManager.listSorted(PID))
-          .hasSize(2)
+        assertThat(processManager.getManagedProcesses())
+          .hasSizeLessThan(beforeKillSize)
           .noneMatch(process -> process.priority() == priority);
     }
 
     @Test
     void killAllProcesses() {
-        assertThat(processManager.listSorted(PRIORITY))
-          .hasSize(3);
+        assertThat(processManager.getManagedProcesses())
+          .isNotEmpty();
 
         processManager.killAllProcesses();
 
-        assertThat(processManager.listSorted(PRIORITY)).isEmpty();
+        assertThat(processManager.getManagedProcesses())
+          .isEmpty();
     }
 
     @Test
