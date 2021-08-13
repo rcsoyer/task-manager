@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(Lifecycle.PER_CLASS)
 class ProcessManagerDefaultTest {
 
+    private static final int DEFAULT_MAX_SIZE_PROCESSES = 5;
     private ProcessManagerDefault processManager;
     private Queue<Process> processes;
 
@@ -131,14 +132,10 @@ class ProcessManagerDefaultTest {
 
         @Test
         void add_whenDoesNotHaveSpaceThenNotAdded() {
-            final int defaultMaxSizeProcesses = 5;
-
-            while (processManager.getManagedProcesses().size() != defaultMaxSizeProcesses) {
-                processManager.add(new Process(randomUUID(), MEDIUM));
-            }
+            addProcessesUntilMax();
 
             assertThat(processManager.getManagedProcesses())
-              .hasSize(defaultMaxSizeProcesses);
+              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
 
             final var addition = new Process(randomUUID(), HIGH);
 
@@ -146,7 +143,35 @@ class ProcessManagerDefaultTest {
 
             assertThat(processManager.getManagedProcesses())
               .doesNotContain(addition)
-              .hasSize(defaultMaxSizeProcesses);
+              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+        }
+    }
+
+    @Nested
+    class IsCapacityReached {
+
+        @Test
+        void isCapacityReached_true() {
+            addProcessesUntilMax();
+
+            assertThat(processManager.getManagedProcesses())
+              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+
+            assertTrue(processManager.isCapacityReached());
+        }
+
+        @Test
+        void isCapacityReached_false() {
+            assertThat(processManager.getManagedProcesses())
+              .hasSizeLessThan(DEFAULT_MAX_SIZE_PROCESSES);
+
+            assertFalse(processManager.isCapacityReached());
+        }
+    }
+
+    private void addProcessesUntilMax() {
+        while (processManager.getManagedProcesses().size() != DEFAULT_MAX_SIZE_PROCESSES) {
+            processManager.add(new Process(randomUUID(), MEDIUM));
         }
     }
 }
