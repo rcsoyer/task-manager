@@ -69,7 +69,7 @@ public class ProcessManagerDefault implements ProcessManager {
 
     /**
      * Creates an unmodifiable copy of the underlying {@link ProcessManagerDefault#managedProcesses}. <br/> By default
-     * it's always order by age. This is the older are the ones that were added first.
+     * it's always ordered by age. This is, the older are the ones that were added first.
      */
     protected Collection<Process> getManagedProcesses() {
         return unmodifiableCollection(managedProcesses);
