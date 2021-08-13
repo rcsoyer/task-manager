@@ -20,6 +20,7 @@ import static org.acme.taskmanager.domain.SortProcesses.PID;
 import static org.acme.taskmanager.domain.SortProcesses.PRIORITY;
 import static org.acme.taskmanager.domain.SortProcesses.TIME;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class ProcessManagerDefaultTest {
@@ -112,5 +113,15 @@ class ProcessManagerDefaultTest {
 
         assertThat(processManager.getManagedProcesses())
           .doesNotContain(oldest);
+    }
+
+    @Test
+    void add() {
+        final var addition = new Process(randomUUID(), MEDIUM);
+
+        assertTrue(processManager.add(addition));
+
+        assertThat(processManager.getManagedProcesses())
+          .contains(addition);
     }
 }
