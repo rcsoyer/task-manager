@@ -3,7 +3,6 @@ package org.acme.taskmanager.domain;
 import java.util.ArrayDeque;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -53,18 +52,19 @@ class ProcessManagerPriorityBasedTest {
         }
 
         @Test
-        @Disabled
         void add_whenHasSpaceThenOldestNotRemoved() {
-            final var addition = new Process(randomUUID(), MEDIUM);
+            final var first = new Process(randomUUID(), MEDIUM);
+            final var last = new Process(randomUUID(), LOW);
+
+            assertTrue(processManager.add(first));
+            assertTrue(processManager.add(last));
 
             assertThat(processManager.getManagedProcesses())
-              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
-
-            assertTrue(processManager.add(addition));
+              .hasSizeLessThan(DEFAULT_MAX_SIZE_PROCESSES);
 
             assertThat(processManager.getManagedProcesses())
-              .contains(addition)
-              .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+              .containsExactly(first, last)
+              .hasSizeLessThan(DEFAULT_MAX_SIZE_PROCESSES);
         }
     }
 }
