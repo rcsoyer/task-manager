@@ -5,6 +5,9 @@ import java.util.Collection;
 /**
  * An aggregator that manages {@link Process}es. <br/> Implementation classes are expected to define a fixed maximum
  * number of 'processes' that is allowed for a 'manager' to handle
+ *
+ * @implNote For production purposes the methods that thrown {@link NullPointerException} should be refactored to throw
+ * {@link IllegalArgumentException} instead
  */
 public interface ProcessManager {
 
