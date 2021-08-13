@@ -113,7 +113,7 @@ class ProcessManagerDefaultTest {
     void killOldest() {
         final Process oldest = processManager.getManagedProcesses().stream().findFirst().get();
 
-        processManager.killOldest();
+        processManager.killOldestProcess();
 
         assertThat(processManager.getManagedProcesses())
           .doesNotContain(oldest);

@@ -50,7 +50,7 @@ public class ProcessManagerDefault implements ProcessManager {
         return false;
     }
 
-    protected void killOldest() {
+    protected void killOldestProcess() {
         managedProcesses.poll();
     }
 

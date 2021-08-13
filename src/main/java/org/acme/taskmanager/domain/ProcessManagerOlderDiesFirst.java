@@ -5,7 +5,7 @@ public final class ProcessManagerOlderDiesFirst extends ProcessManagerDefault im
     @Override
     public boolean add(final Process process) {
         if (isCapacityReached()) {
-            killOldest();
+            killOldestProcess();
         }
 
         return super.add(process);
