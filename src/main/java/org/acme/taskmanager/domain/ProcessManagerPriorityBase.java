@@ -1,14 +1,16 @@
 package org.acme.taskmanager.domain;
 
-public class ProcessManagerPriorityBase extends AbstractProcessManager implements ProcessManager {
+import static java.util.Comparator.comparing;
+
+public final class ProcessManagerPriorityBase extends ProcessManagerDefault implements ProcessManager {
 
     @Override
-    public boolean addProcess(final Process process) {
-        return processes
+    public boolean add(final Process process) {
+        getProcesses()
           .stream()
+          .min(comparing(Process::priority))
           .filter(process::isHigher)
-          .findFirst()
-          .filter(processes::remove)
-          .isPresent();
+          .ifPresent(this::kill);
+        return super.add(process);
     }
 }

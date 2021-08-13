@@ -1,14 +1,13 @@
 package org.acme.taskmanager.domain;
 
-public class ProcessManagerOlderDiesFirst extends AbstractProcessManager implements ProcessManager {
+public final class ProcessManagerOlderDiesFirst extends ProcessManagerDefault implements ProcessManager {
 
     @Override
-    public boolean addProcess(final Process process) {
-        if (processes.size() == MAX_NUMBER_PROCESSES) {
-            processes.poll();
-            return processes.add(process);
+    public boolean add(final Process process) {
+        if (isCapacityReached()) {
+            killOldest();
         }
 
-        return false;
+        return super.add(process);
     }
 }

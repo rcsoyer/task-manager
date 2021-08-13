@@ -4,9 +4,9 @@ import java.util.Collection;
 
 public interface ProcessManager {
 
-    boolean addProcess(Process process);
+    boolean add(Process process);
 
-    Collection<Process> listProcesses(SortProcesses sortProcesses);
+    Collection<Process> listSorted(SortProcesses sortProcesses);
 
     boolean kill(Process process);
 
