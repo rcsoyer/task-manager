@@ -2,7 +2,7 @@ package org.acme.taskmanager.domain;
 
 import static java.util.Comparator.comparing;
 
-public final class ProcessManagerPriorityBase extends ProcessManagerDefault implements ProcessManager {
+public final class ProcessManagerPriorityBased extends ProcessManagerDefault {
 
     @Override
     public boolean add(final Process process) {
