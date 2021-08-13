@@ -10,6 +10,9 @@ public enum Priority {
     MEDIUM,
     HIGH;
 
+    /**
+     * @implNote Uses the {@link Enum#ordinal()} to calculate highers and lowers of the {@link Priority}
+     */
     boolean isHigher(final Priority other) {
         return ordinal() > other.ordinal();
     }
