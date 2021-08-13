@@ -2,6 +2,10 @@ package org.acme.taskmanager.domain;
 
 import java.util.Collection;
 
+/**
+ * An aggregator that manages {@link Process}es. <br/> Implementation classes are expected to define a fixed maximum
+ * number of 'processes' that is allowed for a 'manager' to handle
+ */
 public interface ProcessManager {
 
     /**
