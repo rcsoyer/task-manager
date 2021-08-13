@@ -12,6 +12,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.Comparator.comparing;
+import static java.util.List.of;
 import static java.util.UUID.randomUUID;
 import static org.acme.taskmanager.domain.Priority.HIGH;
 import static org.acme.taskmanager.domain.Priority.LOW;
@@ -34,10 +35,9 @@ class ProcessManagerDefaultTest {
 
     @BeforeEach
     void setUp() {
-        processes = new ArrayDeque<>(3);
-        processes.add(new Process(randomUUID(), HIGH));
-        processes.add(new Process(randomUUID(), MEDIUM));
-        processes.add(new Process(randomUUID(), LOW));
+        processes = new ArrayDeque<>(of(new Process(randomUUID(), HIGH),
+                                        new Process(randomUUID(), MEDIUM),
+                                        new Process(randomUUID(), LOW)));
 
         processManager = new ProcessManagerDefault();
 
