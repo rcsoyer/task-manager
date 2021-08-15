@@ -11,7 +11,6 @@ public final class Process {
     private final UUID pid;
     private final Priority priority;
 
-
     public Process(final Priority priority) {
         requireNonNull(priority, "Missing mandatory data to create a 'Process': Priority");
         this.pid = randomUUID();
