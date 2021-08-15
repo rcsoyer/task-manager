@@ -22,9 +22,14 @@ test {
 ext {
     juniterVersion = '5.7.2'
     assertJVersion = '3.20.2'
+    lombokVersion = '1.18.20'
 }
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
     testImplementation "org.junit.jupiter:junit-jupiter-api:${juniterVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
 

@@ -1,11 +1,17 @@
 package org.acme.taskmanager.domain;
 
-import java.util.Objects;
 import java.util.UUID;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import static java.util.UUID.randomUUID;
 import static org.acme.taskmanager.domain.util.ParametersValidationUtils.requireNonNull;
 
+@Getter
+@ToString
+@EqualsAndHashCode(of = "pid")
 public final class Process {
 
     private final UUID pid;
@@ -21,37 +27,4 @@ public final class Process {
         requireNonNull(other, "Required 'Process' to be checked was not passed");
         return priority.isHigher(other.getPriority());
     }
-
-    public UUID getPid() {
-        return pid;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        var that = (Process) obj;
-        return Objects.equals(this.pid, that.pid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pid);
-    }
-
-    @Override
-    public String toString() {
-        return "Process[" +
-                 "pid=" + pid + ", " +
-                 "priority=" + priority + ']';
-    }
-
 }
