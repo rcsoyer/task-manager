@@ -20,10 +20,10 @@ public class ProcessManagerDefault implements ProcessManager {
         return switch (sorting) {
             case TIME -> getManagedProcesses();
             case PID -> managedProcesses.stream()
-                                        .sorted(comparing(Process::pid))
+                                        .sorted(comparing(Process::getPid))
                                         .toList();
             case PRIORITY -> managedProcesses.stream()
-                                             .sorted(comparing(Process::priority))
+                                             .sorted(comparing(Process::getPriority))
                                              .toList();
         };
     }
@@ -37,7 +37,7 @@ public class ProcessManagerDefault implements ProcessManager {
     @Override
     public final boolean killAllProcessesBy(final Priority filter) {
         requireNonNull(filter, "No 'Priority' filter was informed");
-        return managedProcesses.removeIf(process -> process.priority() == filter);
+        return managedProcesses.removeIf(process -> process.getPriority() == filter);
     }
 
     @Override

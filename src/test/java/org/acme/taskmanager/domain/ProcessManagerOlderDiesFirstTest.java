@@ -3,7 +3,6 @@ package org.acme.taskmanager.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static java.util.UUID.randomUUID;
 import static org.acme.taskmanager.domain.Priority.HIGH;
 import static org.acme.taskmanager.domain.Priority.MEDIUM;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,14 +21,14 @@ class ProcessManagerOlderDiesFirstTest {
 
     @Test
     void add_whenHasSpaceThenOldestNotRemoved() {
-        final var first = new Process(randomUUID(), HIGH);
+        final var first = new Process(HIGH);
 
         processManager.add(first);
 
         assertThat(processManager.getManagedProcesses())
           .hasSizeLessThan(DEFAULT_MAX_SIZE_PROCESSES);
 
-        final var last = new Process(randomUUID(), MEDIUM);
+        final var last = new Process(MEDIUM);
 
         assertTrue(processManager.add(last));
 
@@ -46,7 +45,7 @@ class ProcessManagerOlderDiesFirstTest {
           .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
 
         final Process oldest = processManager.getManagedProcesses().stream().findFirst().get();
-        final var addition = new Process(randomUUID(), HIGH);
+        final var addition = new Process(HIGH);
 
         assertTrue(processManager.add(addition));
 
@@ -58,7 +57,7 @@ class ProcessManagerOlderDiesFirstTest {
 
     private void addProcessesUntilMax() {
         while (processManager.getManagedProcesses().size() != DEFAULT_MAX_SIZE_PROCESSES) {
-            processManager.add(new Process(randomUUID(), HIGH));
+            processManager.add(new Process(HIGH));
         }
     }
 }

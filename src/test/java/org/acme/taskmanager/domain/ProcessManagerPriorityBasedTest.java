@@ -9,7 +9,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.List.of;
-import static java.util.UUID.randomUUID;
 import static org.acme.taskmanager.domain.Priority.HIGH;
 import static org.acme.taskmanager.domain.Priority.LOW;
 import static org.acme.taskmanager.domain.Priority.MEDIUM;
@@ -33,13 +32,13 @@ class ProcessManagerPriorityBasedTest {
 
         @Test
         void add_whenHasNoSpaceThenOldestLowestPriorityIsRemoved() {
-            final var tobeRemoved = new Process(randomUUID(), LOW);
-            final var processes = new ArrayDeque<>(of(new Process(randomUUID(), HIGH),
-                                                      new Process(randomUUID(), MEDIUM),
+            final var tobeRemoved = new Process(LOW);
+            final var processes = new ArrayDeque<>(of(new Process(HIGH),
+                                                      new Process(MEDIUM),
                                                       tobeRemoved,
-                                                      new Process(randomUUID(), HIGH),
-                                                      new Process(randomUUID(), MEDIUM)));
-            final var addition = new Process(randomUUID(), MEDIUM);
+                                                      new Process(HIGH),
+                                                      new Process(MEDIUM)));
+            final var addition = new Process(MEDIUM);
 
             processes.forEach(processManager::add);
 
@@ -56,8 +55,8 @@ class ProcessManagerPriorityBasedTest {
 
         @Test
         void add_whenHasSpaceThenOldestNotRemoved() {
-            final var first = new Process(randomUUID(), MEDIUM);
-            final var last = new Process(randomUUID(), LOW);
+            final var first = new Process(MEDIUM);
+            final var last = new Process(LOW);
 
             assertTrue(processManager.add(first));
             assertTrue(processManager.add(last));

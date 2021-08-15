@@ -13,7 +13,6 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.Comparator.comparing;
 import static java.util.List.of;
-import static java.util.UUID.randomUUID;
 import static org.acme.taskmanager.domain.Priority.HIGH;
 import static org.acme.taskmanager.domain.Priority.LOW;
 import static org.acme.taskmanager.domain.Priority.MEDIUM;
@@ -35,9 +34,9 @@ class ProcessManagerDefaultTest {
 
     @BeforeEach
     void setUp() {
-        processes = new ArrayDeque<>(of(new Process(randomUUID(), HIGH),
-                                        new Process(randomUUID(), MEDIUM),
-                                        new Process(randomUUID(), LOW)));
+        processes = new ArrayDeque<>(of(new Process(HIGH),
+                                        new Process(MEDIUM),
+                                        new Process(LOW)));
 
         processManager = new ProcessManagerDefault();
 
@@ -52,7 +51,7 @@ class ProcessManagerDefaultTest {
             final Collection<Process> orderedByPID = processManager.listSorted(PID);
 
             assertThat(List.copyOf(orderedByPID))
-              .isSortedAccordingTo(comparing(Process::pid));
+              .isSortedAccordingTo(comparing(Process::getPid));
         }
 
         @Test
@@ -68,7 +67,7 @@ class ProcessManagerDefaultTest {
             final Collection<Process> orderedByPriority = processManager.listSorted(PRIORITY);
 
             assertThat(List.copyOf(orderedByPriority))
-              .isSortedAccordingTo(comparing(Process::priority));
+              .isSortedAccordingTo(comparing(Process::getPriority));
         }
     }
 
@@ -88,13 +87,13 @@ class ProcessManagerDefaultTest {
 
         assertThat(beforeKill)
           .hasSize(beforeKillSize)
-          .anyMatch(process -> process.priority() == priority);
+          .anyMatch(process -> process.getPriority() == priority);
 
         processManager.killAllProcessesBy(priority);
 
         assertThat(processManager.getManagedProcesses())
           .hasSizeLessThan(beforeKillSize)
-          .noneMatch(process -> process.priority() == priority);
+          .noneMatch(process -> process.getPriority() == priority);
     }
 
     @Test
@@ -124,7 +123,7 @@ class ProcessManagerDefaultTest {
 
         @Test
         void add_whenHasSpaceThenAdded() {
-            final var addition = new Process(randomUUID(), MEDIUM);
+            final var addition = new Process(MEDIUM);
 
             assertTrue(processManager.add(addition));
 
@@ -139,7 +138,7 @@ class ProcessManagerDefaultTest {
             assertThat(processManager.getManagedProcesses())
               .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
 
-            final var addition = new Process(randomUUID(), HIGH);
+            final var addition = new Process(HIGH);
 
             assertFalse(processManager.add(addition));
 
@@ -184,7 +183,7 @@ class ProcessManagerDefaultTest {
 
     private void addProcessesUntilMax() {
         while (processManager.getManagedProcesses().size() != DEFAULT_MAX_SIZE_PROCESSES) {
-            processManager.add(new Process(randomUUID(), MEDIUM));
+            processManager.add(new Process(MEDIUM));
         }
     }
 }

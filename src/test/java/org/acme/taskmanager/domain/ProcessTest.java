@@ -1,7 +1,5 @@
 package org.acme.taskmanager.domain;
 
-import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 
 import static org.acme.taskmanager.domain.Priority.HIGH;
@@ -13,13 +11,13 @@ class ProcessTest {
 
     @Test
     void isHigher() {
-        final var low = new Process(UUID.randomUUID(), LOW);
-        final var high = new Process(UUID.randomUUID(), HIGH);
+        final var low = new Process(LOW);
+        final var high = new Process(HIGH);
 
         assertTrue(high.isHigher(low));
-        assertTrue(high.priority().isHigher(low.priority()));
+        assertTrue(high.getPriority().isHigher(low.getPriority()));
 
         assertFalse(low.isHigher(high));
-        assertFalse(low.priority().isHigher(high.priority()));
+        assertFalse(low.getPriority().isHigher(high.getPriority()));
     }
 }
