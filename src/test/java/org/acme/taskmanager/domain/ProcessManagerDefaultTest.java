@@ -107,17 +107,6 @@ class ProcessManagerDefaultTest {
           .isEmpty();
     }
 
-    @Test
-    @SuppressWarnings({"OptionalGetWithoutIsPresent", "java:S2699"})
-    void killOldestProcess() {
-        final Process oldest = processManager.getManagedProcesses().stream().findFirst().get();
-
-        processManager.killOldestProcess();
-
-        assertThat(processManager.getManagedProcesses())
-          .doesNotContain(oldest);
-    }
-
     @Nested
     class Add {
 

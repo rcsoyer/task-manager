@@ -56,10 +56,6 @@ public class ProcessManagerDefault implements ProcessManager {
         return false;
     }
 
-    protected void killOldestProcess() {
-        managedProcesses.poll();
-    }
-
     /**
      * The max capacity is defined and fixed at the creation of a {@link ProcessManager}
      */
