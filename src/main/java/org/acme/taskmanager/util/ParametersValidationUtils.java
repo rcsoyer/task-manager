@@ -1,4 +1,4 @@
-package org.acme.taskmanager.domain.util;
+package org.acme.taskmanager.util;
 
 import java.util.Optional;
 

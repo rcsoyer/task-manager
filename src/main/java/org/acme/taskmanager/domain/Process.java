@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import static java.util.UUID.randomUUID;
-import static org.acme.taskmanager.domain.util.ParametersValidationUtils.requireNonNull;
+import static org.acme.taskmanager.util.ParametersValidationUtils.requireNonNull;
 
 @Getter
 @ToString

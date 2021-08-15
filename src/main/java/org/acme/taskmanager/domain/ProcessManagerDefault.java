@@ -6,7 +6,7 @@ import java.util.Queue;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
-import static org.acme.taskmanager.domain.util.ParametersValidationUtils.requireNonNull;
+import static org.acme.taskmanager.util.ParametersValidationUtils.requireNonNull;
 
 public class ProcessManagerDefault implements ProcessManager {
 

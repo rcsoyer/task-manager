@@ -1,9 +1,9 @@
-package org.acme.taskmanager.domain.util;
+package org.acme.taskmanager.util;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.acme.taskmanager.domain.util.ParametersValidationUtils.requireNonNull;
+import static org.acme.taskmanager.util.ParametersValidationUtils.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
