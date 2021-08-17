@@ -81,21 +81,51 @@ class ProcessManagerDefaultTest {
         assertThat(processManager.getManagedProcesses()).doesNotContain(head);
     }
 
-    @Test
-    void killAllProcessesBy() {
-        final var priority = MEDIUM;
-        final Collection<Process> beforeKill = processManager.getManagedProcesses();
-        final var beforeKillSize = beforeKill.size();
+    @Nested
+    class KillAllProcessesBy {
 
-        assertThat(beforeKill)
-          .hasSize(beforeKillSize)
-          .anyMatch(process -> process.getPriority() == priority);
+        @Test
+        void killAllProcessesBy() {
+            final var priority = MEDIUM;
+            final Collection<Process> beforeKill = processManager.getManagedProcesses();
+            final var beforeKillSize = beforeKill.size();
 
-        processManager.killAllProcessesBy(priority);
+            assertThat(beforeKill)
+              .hasSize(beforeKillSize)
+              .anyMatch(process -> process.getPriority() == priority);
 
-        assertThat(processManager.getManagedProcesses())
-          .hasSizeLessThan(beforeKillSize)
-          .noneMatch(process -> process.getPriority() == priority);
+            processManager.killAllProcessesBy(priority);
+
+            assertThat(processManager.getManagedProcesses())
+              .hasSizeLessThan(beforeKillSize)
+              .noneMatch(process -> process.getPriority() == priority);
+        }
+
+        @Test
+        void killAllProcessesBy_whenParallelRequestsThenKill() {
+            final var priorityParallel1 = MEDIUM;
+            final var priorityParallel2 = LOW;
+            final Collection<Process> beforeKill = processManager.getManagedProcesses();
+            final var beforeKillSize = beforeKill.size();
+
+            assertThat(beforeKill)
+              .hasSize(beforeKillSize)
+              .anyMatch(process -> process.getPriority() == priorityParallel1);
+
+            CompletableFuture
+              .allOf(
+                runAsync(() -> processManager.killAllProcessesBy(priorityParallel1)),
+                runAsync(() -> processManager.killAllProcessesBy(priorityParallel2)))
+              .join();
+
+            processManager.killAllProcessesBy(priorityParallel1);
+
+            assertThat(processManager.getManagedProcesses())
+              .hasSizeLessThan(beforeKillSize)
+              .noneMatch(process -> process.getPriority() == priorityParallel1)
+              .noneMatch(process -> process.getPriority() == priorityParallel2);
+        }
+
     }
 
     @Test
