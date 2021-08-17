@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
+    id "java"
     id "idea"
+    id "io.freefair.lombok" version "5.3.3.3"
 }
 
 group 'org.acme'
@@ -34,6 +35,13 @@ dependencies {
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${juniterVersion}"
+}
+
+lombok {
+    config["lombok.accessors.chain"] = "true"
+    config["lombok.toString.callSuper"] = "call"
+    config["lombok.equalsAndHashCode.callSuper"] = "skip"
+    config["config.stopBubbling"] = "true"
 }
 
 test {
