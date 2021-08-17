@@ -13,8 +13,10 @@ public class ProcessManagerDefault implements ProcessManager {
     private static final int MAX_NUMBER_PROCESSES = 5;
 
     /**
-     * @implNote Picking up {@link ArrayBlockingQueue} for the convenience of handling parallel requests. <br/> If
-     * parallel requests are not a requirement the class implementation of {@link Queue} can be changed
+     * @implNote The time of addition is a desirable feature that is automatically sorted by age and that must not
+     * change. Hence, in here a {@link Queue} is used instead of a different type of {@link Collection}. <br/>Picking up
+     * {@link ArrayBlockingQueue} for the convenience of handling parallel requests. <br/> If parallel requests are not
+     * a requirement the class implementation of {@link Queue} can be changed
      */
     private final Queue<Process> managedProcesses = new ArrayBlockingQueue<>(MAX_NUMBER_PROCESSES);
 
