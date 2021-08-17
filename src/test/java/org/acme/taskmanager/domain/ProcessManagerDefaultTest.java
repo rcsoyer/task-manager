@@ -140,17 +140,17 @@ class ProcessManagerDefaultTest {
 
         @Test
         void add_whenParallelRequestsHasSpaceThenAdded() {
-            final var addition1 = new Process(MEDIUM);
-            final var addition2 = new Process(HIGH);
+            final var additionParallel1 = new Process(MEDIUM);
+            final var additionParallel2 = new Process(HIGH);
 
             CompletableFuture
               .allOf(
-                runAsync(() -> processManager.add(addition1)),
-                runAsync(() -> processManager.add(addition2)))
+                runAsync(() -> processManager.add(additionParallel1)),
+                runAsync(() -> processManager.add(additionParallel2)))
               .join();
 
             assertThat(processManager.getManagedProcesses())
-              .contains(addition1, addition2);
+              .contains(additionParallel1, additionParallel2);
         }
     }
 
