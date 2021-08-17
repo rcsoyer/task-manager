@@ -1,8 +1,8 @@
 package org.acme.taskmanager.domain;
 
-import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Comparator.comparing;
@@ -12,7 +12,11 @@ public class ProcessManagerDefault implements ProcessManager {
 
     private static final int MAX_NUMBER_PROCESSES = 5;
 
-    private final Queue<Process> managedProcesses = new ArrayDeque<>(MAX_NUMBER_PROCESSES);
+    /**
+     * @implNote Picking up {@link ArrayBlockingQueue} for the convenience of handling parallel requests. <br/> If
+     * parallel requests are not a requirement the class implementation of {@link Queue} can be changed
+     */
+    private final Queue<Process> managedProcesses = new ArrayBlockingQueue<>(MAX_NUMBER_PROCESSES);
 
     @Override
     public final Collection<Process> listSorted(final SortProcesses sorting) {
