@@ -35,13 +35,13 @@ public interface ProcessManager {
     boolean kill(Process process);
 
     /**
-     * Kill all {@link Process}es present in this {@link ProcessManager} that has the given {@link Priority} parameter
+     * Kill all {@link Process}es present in this {@link ProcessManager} that has the given {@link Process.Priority} parameter
      *
      * @return true if the passed {@link Process} is registered with this {@link ProcessManager} and was successfully
      * removed/killed
      * @throws IllegalArgumentException if the passed parameter is null
      */
-    boolean killAllProcessesBy(Priority priority);
+    boolean killAllProcessesBy(Process.Priority priority);
 
     void killAllProcesses();
 }

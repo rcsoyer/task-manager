@@ -2,8 +2,8 @@ package org.acme.taskmanager.domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.acme.taskmanager.domain.Priority.HIGH;
-import static org.acme.taskmanager.domain.Priority.LOW;
+import static org.acme.taskmanager.domain.Process.Priority.HIGH;
+import static org.acme.taskmanager.domain.Process.Priority.LOW;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

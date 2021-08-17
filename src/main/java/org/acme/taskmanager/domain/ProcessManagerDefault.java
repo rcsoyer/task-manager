@@ -35,7 +35,7 @@ public class ProcessManagerDefault implements ProcessManager {
     }
 
     @Override
-    public final boolean killAllProcessesBy(final Priority filter) {
+    public final boolean killAllProcessesBy(final Process.Priority filter) {
         requireNonNull(filter, "No 'Priority' filter was informed");
         return managedProcesses.removeIf(process -> process.getPriority() == filter);
     }

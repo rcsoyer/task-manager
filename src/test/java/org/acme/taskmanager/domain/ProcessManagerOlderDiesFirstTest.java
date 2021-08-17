@@ -3,8 +3,8 @@ package org.acme.taskmanager.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.acme.taskmanager.domain.Priority.HIGH;
-import static org.acme.taskmanager.domain.Priority.MEDIUM;
+import static org.acme.taskmanager.domain.Process.Priority.HIGH;
+import static org.acme.taskmanager.domain.Process.Priority.MEDIUM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

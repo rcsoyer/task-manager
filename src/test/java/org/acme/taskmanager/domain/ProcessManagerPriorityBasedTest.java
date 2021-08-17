@@ -9,9 +9,9 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.List.of;
-import static org.acme.taskmanager.domain.Priority.HIGH;
-import static org.acme.taskmanager.domain.Priority.LOW;
-import static org.acme.taskmanager.domain.Priority.MEDIUM;
+import static org.acme.taskmanager.domain.Process.Priority.HIGH;
+import static org.acme.taskmanager.domain.Process.Priority.LOW;
+import static org.acme.taskmanager.domain.Process.Priority.MEDIUM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

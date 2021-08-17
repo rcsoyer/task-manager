@@ -13,9 +13,9 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.Comparator.comparing;
 import static java.util.List.of;
-import static org.acme.taskmanager.domain.Priority.HIGH;
-import static org.acme.taskmanager.domain.Priority.LOW;
-import static org.acme.taskmanager.domain.Priority.MEDIUM;
+import static org.acme.taskmanager.domain.Process.Priority.HIGH;
+import static org.acme.taskmanager.domain.Process.Priority.LOW;
+import static org.acme.taskmanager.domain.Process.Priority.MEDIUM;
 import static org.acme.taskmanager.domain.SortProcesses.PID;
 import static org.acme.taskmanager.domain.SortProcesses.PRIORITY;
 import static org.acme.taskmanager.domain.SortProcesses.TIME;
