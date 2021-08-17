@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id "idea"
+    id "application"
     id "io.freefair.lombok" version "5.3.3.3"
 }
 
@@ -46,4 +47,9 @@ lombok {
 
 test {
     useJUnitPlatform()
+}
+
+run {
+    main = "org.acme.game.GameApp"
+    standardInput = System.in
 }
