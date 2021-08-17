@@ -2,10 +2,12 @@ package org.acme.taskmanager.util;
 
 import java.util.Optional;
 
-public final class ParametersValidationUtils {
+import lombok.NoArgsConstructor;
 
-    private ParametersValidationUtils() {
-    }
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
+public final class ParametersValidationUtils {
 
     /**
      * Validate the given parameter is not null
