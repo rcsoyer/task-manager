@@ -21,10 +21,10 @@ test {
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${juniterVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${juniterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 lombok {
