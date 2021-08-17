@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "idea"
-    id "io.freefair.lombok" version "5.3.3.3"
+    id "io.freefair.lombok" version "${lombokPluginVersion}"
 }
 
 group 'org.acme'
@@ -18,12 +18,6 @@ repositories {
 
 test {
     useJUnitPlatform()
-}
-
-ext {
-    juniterVersion = '5.7.2'
-    assertJVersion = '3.20.2'
-    lombokVersion = '1.18.20'
 }
 
 dependencies {
