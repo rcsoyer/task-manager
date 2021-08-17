@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static java.util.Comparator.comparing;
 import static java.util.List.of;
+import static java.util.concurrent.CompletableFuture.runAsync;
 import static org.acme.taskmanager.domain.Process.Priority.HIGH;
 import static org.acme.taskmanager.domain.Process.Priority.LOW;
 import static org.acme.taskmanager.domain.Process.Priority.MEDIUM;
@@ -134,6 +136,21 @@ class ProcessManagerDefaultTest {
             assertThat(processManager.getManagedProcesses())
               .doesNotContain(addition)
               .hasSize(DEFAULT_MAX_SIZE_PROCESSES);
+        }
+
+        @Test
+        void add_whenParallelRequestsHasSpaceThenAdded() {
+            final var addition1 = new Process(MEDIUM);
+            final var addition2 = new Process(HIGH);
+
+            CompletableFuture
+              .allOf(
+                runAsync(() -> processManager.add(addition1)),
+                runAsync(() -> processManager.add(addition2)))
+              .join();
+
+            assertThat(processManager.getManagedProcesses())
+              .contains(addition1, addition2);
         }
     }
 
