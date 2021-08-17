@@ -54,12 +54,7 @@ public class ProcessManagerDefault implements ProcessManager {
     @Override
     public boolean add(final Process process) {
         requireNonNull(process, "No 'Process' was informed");
-
-        if (!isCapacityReached()) {
-            return managedProcesses.offer(process);
-        }
-
-        return false;
+        return managedProcesses.offer(process);
     }
 
     /**
