@@ -19,11 +19,11 @@ public interface ProcessManager {
 
     /**
      * Creates an unmodifiable copy of the {@link Process}es registered with this {@link ProcessManager} sorted by the
-     * value of {@link SortProcesses}
+     * value of {@link Process.Sort}
      *
      * @throws IllegalArgumentException if the passed parameter is null
      */
-    Collection<Process> listSorted(SortProcesses sortProcesses);
+    Collection<Process> listSorted(Process.Sort sort);
 
     /**
      * Kill the given {@link Process} if the same is registered with this {@link ProcessManager}

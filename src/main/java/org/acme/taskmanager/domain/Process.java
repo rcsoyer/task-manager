@@ -48,4 +48,6 @@ public final class Process {
             return ordinal() > other.ordinal();
         }
     }
+
+    public enum Sort {TIME, PRIORITY, PID}
 }

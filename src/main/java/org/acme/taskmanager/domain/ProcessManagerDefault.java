@@ -21,7 +21,7 @@ public class ProcessManagerDefault implements ProcessManager {
     private final Queue<Process> managedProcesses = new ArrayBlockingQueue<>(MAX_NUMBER_PROCESSES);
 
     @Override
-    public final Collection<Process> listSorted(final SortProcesses sorting) {
+    public final Collection<Process> listSorted(final Process.Sort sorting) {
         requireNonNull(sorting, "No 'sorting' filter was informed");
         return switch (sorting) {
             case TIME -> getManagedProcesses();
