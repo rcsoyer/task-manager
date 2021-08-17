@@ -1,7 +1,6 @@
 plugins {
     id "java"
     id "idea"
-    id "application"
     id "io.freefair.lombok" version "5.3.3.3"
 }
 
@@ -28,10 +27,6 @@ ext {
 }
 
 dependencies {
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
     testImplementation "org.junit.jupiter:junit-jupiter-api:${juniterVersion}"
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
 
@@ -47,9 +42,4 @@ lombok {
 
 test {
     useJUnitPlatform()
-}
-
-run {
-    main = "org.acme.game.GameApp"
-    standardInput = System.in
 }
