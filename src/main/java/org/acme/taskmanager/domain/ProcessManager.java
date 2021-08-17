@@ -19,11 +19,11 @@ public interface ProcessManager {
 
     /**
      * Creates an unmodifiable copy of the {@link Process}es registered with this {@link ProcessManager} sorted by the
-     * value of {@link Process.Sort}
+     * value of {@link Sort}
      *
      * @throws IllegalArgumentException if the passed parameter is null
      */
-    Collection<Process> listSorted(Process.Sort sort);
+    Collection<Process> listSorted(Sort sort);
 
     /**
      * Kill the given {@link Process} if the same is registered with this {@link ProcessManager}
@@ -35,7 +35,8 @@ public interface ProcessManager {
     boolean kill(Process process);
 
     /**
-     * Kill all {@link Process}es present in this {@link ProcessManager} that has the given {@link Process.Priority} parameter
+     * Kill all {@link Process}es present in this {@link ProcessManager} that has the given {@link Process.Priority}
+     * parameter
      *
      * @return true if the passed {@link Process} is registered with this {@link ProcessManager} and was successfully
      * removed/killed
@@ -44,4 +45,9 @@ public interface ProcessManager {
     boolean killAllProcessesBy(Process.Priority priority);
 
     void killAllProcesses();
+
+    /**
+     * The sorting operations that must be supported by all implementations of {@link ProcessManager}
+     */
+    enum Sort {TIME, PRIORITY, PID}
 }

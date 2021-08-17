@@ -49,5 +49,4 @@ public final class Process {
         }
     }
 
-    public enum Sort {TIME, PRIORITY, PID}
 }
